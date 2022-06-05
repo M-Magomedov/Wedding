@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Wedday</title>
+</head>
+<body>
+
+<a th:href="@{/}"><h1>Wedday</h1></a>
+
+<h4>Панель администратора</h4>
+<table border="1">
+    <tr>
+        <th>Email</th>
+        <th>Номер телефона</th>
+        <th>Активность</th>
+        <th>Роли</th>
+        <th>Бан</th>
+<!--        <th>Редактирование</th>-->
+        <th>Подробная информация</th>
+        <th>Удалить пользователя</th>
+
+    </tr>
+    <div th:each="user : ${users}">
+        <tr>
+            <th th:text="${user.getEmail()}"></th>
+            <th th:text="${user.getPhoneNumber()}"></th>
+            <th th:if="${user.isActive}">true</th>
+            <th th:unless="${user.isActive}">false</th>
+            <th th:each="role : ${user.roles}" th:text="${role}"></th>
+            <th>
+                <form th:action="@{/admin/user/ban/{id}(id=${user.getId()})}" th:method="post">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}">
+                    <input type="submit" value="Бан"/>
+                </form>
+            </th>
+<!--            <th><a th:href="@{/admin/user/edit/{id}(id=${user.getId()})}">Редактирование</a>-->
+            <th><a th:href="@{/user/{id}(id=${user.getId()})}">Подробная информация</a>
+            <th><a th:href="@{/admin/user/delete/{id}(id=${user.getId()})}">Удалить пользователя</a>
+        </tr>
+    </div>
+</table>
+
+</body>
+</html>

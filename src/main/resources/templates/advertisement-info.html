@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Wedday</title>
+</head>
+<body>
+<a th:href="@{/}"><h1>Wedday</h1></a>
+<hr>
+<h4>Подробная информация об услуге</h4>
+
+<div th:each="image : ${images}">
+    <img th:src="@{/images/{id}(id=${image.getId()})}" th:height="100px"/><br><br>
+</div>
+
+<b>Наименование услуги :</b>
+<tr th:text="${advertisement.getTitle()}"></tr>
+<br>
+<b>Описание услуги :</b>
+<tr th:text="${advertisement.getDescription()}"></tr>
+<br>
+<b>Цена :</b>
+<tr th:text="${advertisement.getPrice()}"></tr>
+<br>
+<b>Город :</b>
+<tr th:text="${advertisement.getCity()}"></tr>
+<br>
+<b>Автор :</b><a th:href="@{/user/{id}(id=${user.getId()})}" th:text="${user.getName()}"></a>
+<br>
+<b>Номер телефона :</b>
+<tr th:text="${user.getPhoneNumber()}"></tr>
+<br>
+<hr>
+</body>
+</html>

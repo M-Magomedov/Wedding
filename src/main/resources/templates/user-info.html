@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wedday</title>
+</head>
+<body>
+<a th:href="@{/}"><h1>Wedday</h1></a>
+<hr>
+<h3>Подробная информация о пользователе: <tr th:text="${user.getEmail()}"></tr></h3>
+<b>Номер телефона :</b><tr th:text="${user.getPhoneNumber()}"></tr><br>
+<b>Электронная почта :</b><tr th:text="${user.getEmail()}"></tr><br>
+
+
+<h4>Товары пользователя
+    <td th:text="${user.getName()}"></td>
+</h4>
+<div th:each="advertisement : ${advertisements}">
+    <a th:href="@{/advertisement/{id}(id=${advertisement.getId()})}"
+       th:text="${advertisement.getTitle() + ', ' + advertisement.getPrice()}">user</a>
+</div>
+
+</body>
+</html>

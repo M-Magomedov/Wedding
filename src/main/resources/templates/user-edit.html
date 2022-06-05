@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wedday</title>
+</head>
+<body>
+<a th:href="@{/}"><h1>Wedday</h1></a>
+<hr>
+<h3>Редактирование пользователя: <tr th:text="${user.getName()}"></tr></h3>
+<form th:action="@{/admin/user/edit}" th:method="post">
+    <div th:each="role : ${roles}" th:text="#{user.getRoles()}">
+        <label>
+            <input type="checkbox" name="role" th:checked="*{role}" />
+        </label>
+<!--        <div>-->
+<!--            <label th:for="${#ids.next('covered')}" th:text="#{seedstarter.covered}">Covered</label>-->
+<!--            <input type="checkbox" th:field="*{covered}" />-->
+<!--        </div>-->
+    </div>
+    <input type="hidden" name="userId" th:value="${user.getId()}">
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <button type="submit" value="Сохранить"></button>
+</form>
+<!--<form action="/admin/user/edit" method="post">-->
+<!--    <#list roles as role>-->
+<!--    <div>-->
+<!--        <label><input type="checkbox" name="${role}" ${user.roles?seq_contains(role)?string("checked", "")}>${role}</label>-->
+<!--    </div>-->
+<!--</#list>-->
+<!--<input type="hidden" value="${user.id}" name="userId">-->
+<!--<input type="hidden" value="${_csrf.token}" name="_csrf">-->
+<!--<button type="submit">Сохранить</button>-->
+<!--</form>-->
+</body>
+</html>

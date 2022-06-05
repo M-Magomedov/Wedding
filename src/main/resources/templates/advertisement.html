@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Wedday</title>
+</head>
+<body>
+
+<!--<h1>Wedday</h1>-->
+<a th:href="@{/}"><h1>Wedday</h1></a>
+<div th:if="${user.getEmail()}">
+    <form th:method="POST" th:action="@{/logout}">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="Выйти"/>
+    </form>
+    <div th:if="${user.isAdmin}">
+        <a th:href="@{/admin}">Панель администратора</a>
+    </div>
+</div>
+<div th:unless="${user.getEmail()}"><a th:href="@{/login}">Войти</a> </h1>
+    <hr>
+</div>
+
+
+<h4>Все услуги: </h4>
+<div th:each="advertisement : ${advertisements}">
+    <a th:href="@{/advertisement/{id}(id=${advertisement.getId()})}"
+       th:text="${advertisement.getTitle() + ', ' + advertisement.getPrice()}">user</a>
+        <div th:if="${user.isAdmin}">
+            <a th:href="@{/advertisement/delete/{id}(id=${advertisement.getId()})}">Удалить товар</a>
+        </div><br><br>
+</div>
+<hr>
+<div th:if="${user.email}">
+    <h3>Добавить новую услугу</h3>
+    <form th:method="POST" th:action="@{/advertisement/create}" th:object="${advertisements}"
+          enctype="multipart/form-data">
+        Наименование услуги : <input type="text" name="title"/><br><br>
+        Описание услуги: <input type="text" name="description"/><br><br>
+        Цена: <input type="number" name="price"/><br><br>
+        Город: <input type="text" name="city"/><br><br>
+        Первая фотография: <input type="file" name="file1"/><br><br>
+        Вторая фотография: <input type="file" name="file2"/><br><br>
+        Третья фотография: <input type="file" name="file3"/><br><br>
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="Добавить услугу"/>
+    </form>
+</div>
+</body>
+</html>
